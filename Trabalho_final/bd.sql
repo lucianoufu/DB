@@ -241,3 +241,34 @@ CREATE VIEW carros_estoque AS
 (
 	SELECT * FROM tb_estoque RIGHT JOIN tb_carros ON tb_estoque.id_carro = tb_carros.id_carro
 )
+
+--Segurança
+
+CREATE GROUP administradores;
+CREATE GROUP vendedores;
+CREATE GROUP trab_estoque;
+
+REVOKE ALL ON tb_carros            FROM GROUP vendedores;
+REVOKE ALL ON tb_cliente           FROM GROUP vendedores;
+REVOKE ALL ON tb_venda             FROM GROUP vendedores;
+REVOKE ALL ON tb_estoque           FROM GROUP vendedores;
+REVOKE ALL ON tb_carros_auditoria  FROM GROUP vendedores;
+REVOKE ALL ON tb_cliente_auditoria FROM GROUP vendedores;
+REVOKE ALL ON tb_estoque_auditoria FROM GROUP vendedores;
+REVOKE ALL ON tb_venda_auditoria   FROM GROUP vendedores;
+REVOKE ALL ON tb_carros_auditoria  FROM GROUP vendedores;
+REVOKE ALL ON tb_cliente_auditoria FROM GROUP administradores;
+REVOKE ALL ON tb_estoque_auditoria FROM GROUP administradores;
+REVOKE ALL ON tb_venda_auditoria   FROM GROUP administradores;
+REVOKE ALL ON tb_carros            FROM GROUP trab_estoque;
+REVOKE ALL ON tb_cliente           FROM GROUP trab_estoque;
+REVOKE ALL ON tb_venda             FROM GROUP trab_estoque;
+REVOKE ALL ON tb_estoque           FROM GROUP trab_estoque;
+
+GRANT ALL    ON tb_cliente TO GROUP administradores;
+GRANT ALL    ON tb_estoque TO GROUP administradores;
+GRANT ALL    ON tb_carros  TO GROUP administradores;
+GRANT ALL    ON tb_venda   TO GROUP administradores;
+GRANT INSERT ON tb_cliente TO GROUP vendedores;
+GRANT ALL    ON tb_venda   TO GROUP vendedores;
+GRANT UPDATE ON tb_estoque TO GROUP trab_estoque;
